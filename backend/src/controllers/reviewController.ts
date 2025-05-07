@@ -72,3 +72,19 @@ export const updateReview =async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 }
+
+export const deleteReview =async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        let reviews: Review[] = await readJSON(reviewPath);
+        const initialLength = reviews.length;
+        reviews = reviews.filter(r => !(r.id === req.params.id && r.productId === req.params.productId));
+        if(reviews.length === initialLength) res.status(404).json({error: 'Review not found'});
+        else{
+            await writeJSON(reviewPath, reviews);
+            await updateAverageRating(req.params.productId);
+            res.status(204).send();
+        }
+    } catch (error) {
+        next(error);
+    }
+}
