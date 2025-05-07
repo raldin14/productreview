@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import path from 'path';
-import { readJSON } from '../utils/fileHandler';
+import {v4 as uuidv4 } from 'uuid';
+import { readJSON, writeJSON } from '../utils/fileHandler';
 import { Product } from '../models/Product';
 
 const productPath = path.join(__dirname,'../data/products.json');
@@ -21,10 +22,40 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
 export const searchProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { q } = req.query;
-        if(!q) return res.status(400).json({ error: 'Missing search query'});
-        const products: Product[] = await readJSON(productPath);
-        const results = products.filter(p => p.name.toLowerCase().includes((q as string).toLowerCase()));
-        res.json(results);
+        if(!q) res.status(400).json({ error: 'Missing search query'});
+        else{
+            const products: Product[] = await readJSON(productPath);
+            const results = products.filter(p => p.name.toLowerCase().includes((q as string).toLowerCase()));
+            res.json(results);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const addProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        console.log(req.body, "this is the value")
+        const {name, description, category, price, imagePath } = req.body;
+        if(!name || !description || !category || !price){
+            res.status(400).json({error: 'Missing required fields'});
+        }else{
+            const products: Product[] = await readJSON(productPath);
+            const newProduct: Product = {
+                id: uuidv4(),
+                name,
+                description,
+                category,
+                price: Number(price),
+                dateAdded: new Date().toISOString(),
+                averageRating: 0,
+                image: imagePath || ''
+            };
+
+            products.push(newProduct);
+            await writeJSON(productPath, products);
+            res.status(201).json(newProduct);
+        }
     } catch (error) {
         next(error);
     }

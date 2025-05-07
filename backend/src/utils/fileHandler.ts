@@ -6,5 +6,5 @@ export const readJSON = async <T>(filePath: string): Promise<T> => {
 }
 
 export const writeJSON =async <T>(filePath: string, data: T): Promise<void> => {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
 }
