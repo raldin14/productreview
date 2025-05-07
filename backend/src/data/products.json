@@ -7,7 +7,7 @@
       "price": 25.99,
       "dateAdded": "2025-05-05T10:00:00.000Z",
       "averageRating": 4.5,
-      "image": "/images/wireless-mouse.jpg"
+      "image": "https://m.media-amazon.com/images/I/61Mk3YqYHpL.jpg"
     },
     {
       "id": "2",
@@ -17,7 +17,7 @@
       "price": 89.99,
       "dateAdded": "2025-05-04T12:00:00.000Z",
       "averageRating": 4.7,
-      "image": "/images/bluetooth-headphones.jpg"
+      "image": "https://a.media-amazon.com/images/I/61LhfQRdEgL._AC_SX679_.jpg"
     }
   ]
   
