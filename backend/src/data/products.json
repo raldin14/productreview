@@ -1,0 +1,23 @@
+[
+    {
+      "id": "1",
+      "name": "Wireless Mouse",
+      "description": "Ergonomic wireless mouse",
+      "category": "Electronics",
+      "price": 25.99,
+      "dateAdded": "2025-05-05T10:00:00.000Z",
+      "averageRating": 4.5,
+      "image": "/images/wireless-mouse.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Bluetooth Headphones",
+      "description": "Noise-cancelling over-ear headphones",
+      "category": "Electronics",
+      "price": 89.99,
+      "dateAdded": "2025-05-04T12:00:00.000Z",
+      "averageRating": 4.7,
+      "image": "/images/bluetooth-headphones.jpg"
+    }
+  ]
+  
