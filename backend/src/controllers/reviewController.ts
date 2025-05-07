@@ -27,3 +27,28 @@ export const getProductReviews =async (req: Request, res: Response, next: NextFu
         next(error);
     }
 }
+
+export const addReview =async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {author, rating, comment} = req.body;
+        if(!author || !rating || rating < 1 || rating > 5) res.status(400).json({error: 'Invalid input'});
+        else{
+            const reviews: Review[] = await readJSON(reviewPath);
+            const newReview: Review = {
+                id: uuidv4(),
+                productId: req.params.id,
+                author,
+                rating,
+                comment,
+                date: new Date().toISOString(),
+            };
+
+            reviews.push(newReview);
+            await writeJSON(reviewPath, reviews);
+            await updateAverageRating(req.params.id);
+            res.status(201).json(newReview);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
