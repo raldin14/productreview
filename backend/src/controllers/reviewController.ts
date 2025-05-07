@@ -52,3 +52,23 @@ export const addReview =async (req: Request, res: Response, next: NextFunction) 
         next(error);
     }
 }
+
+export const updateReview =async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {author, rating, comment } = req.body;
+        const reviews: Review[] = await readJSON(reviewPath);
+        const review = reviews.find(r => r.id === req.params.id && r.productId === req.params.productId);
+        if(!review) res.status(404).json({error: 'Review not found'});
+        else{
+            if(author) review.author = author;
+            if(rating) review.rating = rating;
+            if(comment) review.comment = comment;
+            review.date = new Date().toISOString();
+            await writeJSON(reviewPath, reviews);
+            await updateAverageRating(req.params.productId);
+            res.json(review);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
