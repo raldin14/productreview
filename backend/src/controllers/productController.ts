@@ -36,7 +36,7 @@ export const searchProducts = async (req: Request, res: Response, next: NextFunc
 export const addProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         console.log(req.body, "this is the value")
-        const {name, description, category, price, imagePath } = req.body;
+        const {name, description, category, price, image } = req.body;
         if(!name || !description || !category || !price){
             res.status(400).json({error: 'Missing required fields'});
         }else{
@@ -49,7 +49,7 @@ export const addProduct = async (req: Request, res: Response, next: NextFunction
                 price: Number(price),
                 dateAdded: new Date().toISOString(),
                 averageRating: 0,
-                image: imagePath || ''
+                image: image || ''
             };
 
             products.push(newProduct);
@@ -64,7 +64,7 @@ export const addProduct = async (req: Request, res: Response, next: NextFunction
 export const updateProduct =async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const {name, description, category, price, imagePath } = req.body;
+        const {name, description, category, price, image } = req.body;
         const products: Product[] = await readJSON(productPath);
         const index = products.findIndex(p => p.id === id);
         if(index === -1) res.status(401).json({error: 'Product not found'});
@@ -75,12 +75,28 @@ export const updateProduct =async (req: Request, res: Response, next: NextFuncti
                 description: description ?? products[index].description,
                 category: category ?? products[index].category,
                 price: price ?? products[index].price,
-                image: imagePath ?? products[index].image
+                image: image ?? products[index].image
             };
 
             products[index] = updated;
             await writeJSON(productPath, products);
             res.json(updated);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {id} = req.params;
+        const products: Product[] = await readJSON(productPath);
+        const exists = products.find(p => p.id === id);
+        if(!exists) res.status(404).json({error: 'Product not found'});
+        else{
+            const updated = products.filter(p => p.id !== id);
+            await writeJSON(productPath, updated);
+            res.status(204).send();
         }
     } catch (error) {
         next(error);
