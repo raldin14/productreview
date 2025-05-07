@@ -60,3 +60,29 @@ export const addProduct = async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 }
+
+export const updateProduct =async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const {name, description, category, price, imagePath } = req.body;
+        const products: Product[] = await readJSON(productPath);
+        const index = products.findIndex(p => p.id === id);
+        if(index === -1) res.status(401).json({error: 'Product not found'});
+        else{
+            const updated = {
+                ...products[index],
+                name: name ?? products[index].description,
+                description: description ?? products[index].description,
+                category: category ?? products[index].category,
+                price: price ?? products[index].price,
+                image: imagePath ?? products[index].image
+            };
+
+            products[index] = updated;
+            await writeJSON(productPath, products);
+            res.json(updated);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
