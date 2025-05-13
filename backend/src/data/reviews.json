@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "9d16e238-7220-4242-b380-97bce7571239",
+    "productId": "5244f06a-b965-46ff-bc04-c1e5e2a43fd3",
+    "author": "Raldin Hidalgo",
+    "rating": 5,
+    "comment": "This is my review of this",
+    "date": "2025-05-09T22:30:06.915Z"
+  },
+  {
+    "id": "301ec78d-00b3-46ed-bc35-fd88fa3137c9",
+    "productId": "5244f06a-b965-46ff-bc04-c1e5e2a43fd3",
+    "author": "Raldin Hidalgo",
+    "rating": 5,
+    "comment": "This is a greate coffe maker",
+    "date": "2025-05-13T13:21:53.755Z"
+  },
+  {
+    "id": "e48199bb-e405-410a-9d24-5a3cbf3182ff",
+    "productId": "bfacbc51-a095-40b8-9541-cd844e0f58ad",
+    "author": "Raldin Hidalgo",
+    "rating": 2.5,
+    "comment": "Nice cover ",
+    "date": "2025-05-13T13:49:26.752Z"
+  }
+]

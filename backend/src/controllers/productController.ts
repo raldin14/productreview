@@ -19,6 +19,20 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
     }
 }
 
+export const getProductById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        const products: Product[] = await readJSON(productPath);
+        const product = products.find(p => p.id === id);
+
+        if (!product) res.status(404).json({ error: 'Product not found' });
+        else res.json(product);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const searchProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { q } = req.query;

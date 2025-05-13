@@ -3,9 +3,11 @@ import path from 'path';
 import productRoutes from './routes/productRoutes';
 import reviewRoutes from './routes/reviewRoutes';
 import errorHandler from './middlewares/errorHandler';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3000;
+app.use(cors());
 app.use(express.json());
 
 // serve static images
