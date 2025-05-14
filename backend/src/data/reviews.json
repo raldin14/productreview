@@ -22,5 +22,85 @@
     "rating": 2.5,
     "comment": "Nice cover ",
     "date": "2025-05-13T13:49:26.752Z"
+  },
+  {
+    "id": "a6694627-1101-4049-81d6-af87fa146d4d",
+    "productId": "720e662f-7f9e-4087-a3da-17e8fd5b768c",
+    "author": "Raldin Hidalgo",
+    "rating": 1,
+    "comment": "This is somethign",
+    "date": "2025-05-13T22:29:31.461Z"
+  },
+  {
+    "id": "195ceeb7-319a-482a-b6b6-01a3cc148fff",
+    "productId": "b2ef8ef7-27f3-43e7-bb4c-d607f7624315",
+    "author": "Raldin Hidalgo",
+    "rating": 5,
+    "comment": "Adding some good comments",
+    "date": "2025-05-13T22:30:17.280Z"
+  },
+  {
+    "id": "8772d77b-693f-41cd-9074-eeed9f7044e3",
+    "productId": "b2ef8ef7-27f3-43e7-bb4c-d607f7624315",
+    "author": "Raldin Hidalgo",
+    "rating": 3,
+    "comment": "My comenmts",
+    "date": "2025-05-13T22:30:52.489Z"
+  },
+  {
+    "id": "f73c6369-f9fe-4ffa-b68c-e85176a90542",
+    "productId": "720e662f-7f9e-4087-a3da-17e8fd5b768c",
+    "author": "Raldin Hidalgo",
+    "rating": 4,
+    "comment": "Excelente",
+    "date": "2025-05-13T22:37:15.518Z"
+  },
+  {
+    "id": "2907c7f7-3859-42e6-8e45-f2b231762e17",
+    "productId": "720e662f-7f9e-4087-a3da-17e8fd5b768c",
+    "author": "Raldin Hidalgo",
+    "rating": 1.1,
+    "comment": "Meeh",
+    "date": "2025-05-13T22:45:14.011Z"
+  },
+  {
+    "id": "8cb06cd0-3e45-4142-9ab9-286d7e186e59",
+    "productId": "720e662f-7f9e-4087-a3da-17e8fd5b768c",
+    "author": "Robert C. Martin",
+    "rating": 5,
+    "comment": "Smethij",
+    "date": "2025-05-13T22:49:44.910Z"
+  },
+  {
+    "id": "6bece5fd-d98e-4d5f-882d-5b0bc359a011",
+    "productId": "720e662f-7f9e-4087-a3da-17e8fd5b768c",
+    "author": "Raldin Hidalgo",
+    "rating": 5,
+    "comment": "jdafvb",
+    "date": "2025-05-13T22:50:21.120Z"
+  },
+  {
+    "id": "28f5e4e9-306c-4d11-ad48-12e6ad078ac6",
+    "productId": "720e662f-7f9e-4087-a3da-17e8fd5b768c",
+    "author": "Raldin Hidalgo",
+    "rating": 5,
+    "comment": "dvrfqe",
+    "date": "2025-05-13T22:53:34.347Z"
+  },
+  {
+    "id": "98cfefed-c432-4104-8eed-38e5f5057ed2",
+    "productId": "70ab52e6-a999-4bdf-a3f7-547e2ffa06eb",
+    "author": "Raldin Hidalgo",
+    "rating": 4,
+    "comment": "I like them",
+    "date": "2025-05-13T22:56:48.486Z"
+  },
+  {
+    "id": "f0d98a6a-8a53-444e-aeda-10850b85e53c",
+    "productId": "86581639-08d9-46dc-933a-20b9a6165e17",
+    "author": "Raldin Hidalgo",
+    "rating": 4.5,
+    "comment": "I like it like it",
+    "date": "2025-05-14T01:19:20.117Z"
   }
 ]

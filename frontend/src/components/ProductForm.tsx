@@ -59,7 +59,14 @@ const ProductForm: React.FC<Props> = ({initialData = {}, onSubmit}) => {
             </div>
             <div className="mb-3">
                 <label className="form-label">Rating</label>
-                <input type="number" min={0} max={5} name="averageRating" className="form-control" value={form.averageRating} onChange={handleChange} />
+                <input 
+                    type="number" 
+                    min={0} max={5} 
+                    name="averageRating" 
+                    className="form-control" 
+                    value={form.averageRating} 
+                    onChange={handleChange} 
+                    readOnly />
             </div>
             <div className="mb-3">
                 <label className="form-label">Image URL</label>

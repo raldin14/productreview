@@ -3,7 +3,7 @@
     "id": "5244f06a-b965-46ff-bc04-c1e5e2a43fd3",
     "name": "Tastyle  Coffe maker",
     "description": "Mini Hot and Iced Coffee Maker Single Serve, for K Cup and Ground, 6 to 14 Oz Brew Sizes, with Recipe Book, for Home, Travel, RV, Office and Dorm, Classic Black (2.0 Version)",
-    "category": "Electronic",
+    "category": "Electronics",
     "price": 39.97,
     "dateAdded": "2025-05-09T13:01:54.993Z",
     "averageRating": 5,
@@ -24,9 +24,9 @@
     "name": "FLEXISPOT XL31 Power Lift Recliner Chair",
     "description": "FLEXISPOT XL31 Power Lift Recliner Chair for Elderly, Electric Lift Chair with Massage & Heat, PU Leather Reclining Sofa w/Cup Holders, Side Pockets for Living Room Bedroom(Medium Size,Black)",
     "category": "Home",
-    "price": 199.99,
+    "price": 200.5,
     "dateAdded": "2025-05-13T13:36:26.109Z",
-    "averageRating": 0,
+    "averageRating": 4,
     "image": "https://m.media-amazon.com/images/I/71RBzdu2GVL._AC_SX679_.jpg"
   },
   {
@@ -36,7 +36,27 @@
     "category": "Home",
     "price": 58.49,
     "dateAdded": "2025-05-13T13:39:16.163Z",
-    "averageRating": 0,
+    "averageRating": 3.516666666666667,
     "image": "https://m.media-amazon.com/images/I/615t60-qErL._AC_SX679_.jpg"
+  },
+  {
+    "id": "70ab52e6-a999-4bdf-a3f7-547e2ffa06eb",
+    "name": "ICARA Blue Light Glasses",
+    "description": "ICARA Blue Light Blocking Computer Reading Glasses Retro Oversized Cat Eye Glasses Anti Eyestrain & UV Protection",
+    "category": "Home",
+    "price": 14.99,
+    "dateAdded": "2025-05-13T22:55:58.105Z",
+    "averageRating": 4,
+    "image": "https://m.media-amazon.com/images/I/61uvB1soBuL._AC_SX679_.jpg"
+  },
+  {
+    "id": "86581639-08d9-46dc-933a-20b9a6165e17",
+    "name": "Logitech G733 Gaming Headset",
+    "description": "Logitech G733 Lightspeed Wireless Gaming Headset with Suspension Headband, Lightsync RGB, Blue VO!CE mic technology and PRO-G audio drivers - Black",
+    "category": "Games",
+    "price": 100,
+    "dateAdded": "2025-05-14T01:18:42.712Z",
+    "averageRating": 4.5,
+    "image": "https://m.media-amazon.com/images/I/71xNjrzG69L._AC_SX679_.jpg"
   }
 ]

@@ -8,6 +8,7 @@ interface ProductContextType{
     error: string | null;
     fetchProducts: () => void;
     deleteProduct: (id: string) => void;
+    searchProducts: (query: string) => Promise<Product[]>;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -39,11 +40,27 @@ export const ProductProvider: React.FC<{children: React.ReactNode}> = ({children
         }
     },[fetchProducts]);
 
+    const searchProducts = useCallback(async (query:string): Promise<Product[]> => {
+        try {
+            // setLoading(true);
+            const res = await API.get(`/search?q=${encodeURIComponent(query)}`);
+            setError(null);
+            return res.data;
+        } catch (error) {
+            setError('Failed to search products');
+            return [];
+        }
+        // finally{
+        //     setLoading(false);
+        // }
+    },[]);
+
     useEffect(() =>{
         fetchProducts();
-    },[fetchProducts])
+    },[fetchProducts]);
+
     return (
-        <ProductContext.Provider value={{products, loading, error, fetchProducts, deleteProduct}}>
+        <ProductContext.Provider value={{products, loading, error, fetchProducts, deleteProduct, searchProducts}}>
             {children}
         </ProductContext.Provider>
     )

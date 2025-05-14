@@ -1,10 +1,39 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useProductContex } from '../context/ProductContext';
 import Rating from "./Rating";
+import type { Product } from "../types";
 
 const ProductList = memo(() => {
-    const {products, loading, error, deleteProduct} = useProductContex();
+    const {products, loading, error, deleteProduct, fetchProducts, searchProducts} = useProductContex();
+    const [searchTerm, setSearchterm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [displayedProducts, setDisplayedProducts] = useState<Product[]>([]);
+
+    const categories = Array.from(new Set(products.map(p => p.category)));
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+    
+    useEffect(() => {
+        setDisplayedProducts(products);
+    }, [products]);
+
+    useEffect(() => {
+        const handleSearch = async () => {
+            if (searchTerm) {
+                const results = await searchProducts(searchTerm);
+                setDisplayedProducts(results);
+            } else {
+                setDisplayedProducts(products);
+            }
+        };
+    
+        handleSearch();
+    }, [searchTerm, products]);
+
+    const filterProducts = displayedProducts.filter(p => selectedCategory ? p.category === selectedCategory : true);
 
     if(loading) return <div>Loading...</div>;
     if(error) return <div className="text-danger">{error}</div>
@@ -15,7 +44,16 @@ const ProductList = memo(() => {
                 <h2>Products</h2>
                 <Link to="/create" className="btn btn-primary">Add Product</Link>
             </div>
-            {products.map((p) =>(
+            <div className="d-flex mb-3 gap-3">
+                <input type="text" placeholder="Search by name..." className="form-control" value={searchTerm} onChange={(e) => setSearchterm(e.target.value)}/>
+                <select className="form-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                    <option value="">All Categories</option>
+                    {categories.map((cat) => (
+                        <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                </select>
+            </div>
+            {filterProducts.map((p) =>(
                 <div key={p.id} className="card mb-3">
                     <div className="card-body d-flex justify-content-between">
                         {p.image && (
