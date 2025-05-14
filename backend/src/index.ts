@@ -1,12 +1,19 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
+import connectDB from './config/db';
 import productRoutes from './routes/productRoutes';
 import reviewRoutes from './routes/reviewRoutes';
 import errorHandler from './middlewares/errorHandler';
-import cors from 'cors';
+
+connectDB();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
 app.use(express.json());
 

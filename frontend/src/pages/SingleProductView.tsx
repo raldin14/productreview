@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useProductContex } from "../context/ProductContext";
 import ProductDetail from "../components/ProductDetail";
