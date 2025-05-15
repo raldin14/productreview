@@ -42,7 +42,12 @@ const ProductForm: React.FC<Props> = ({initialData = {}, onSubmit}) => {
                     <option value="Electronics">Electronics</option>
                     <option value="Books">Books</option>
                     <option value="Games">Games</option>
-                    <option value="Home">Home</option>
+                    <option value="Home">Home & Kitchen</option>
+                    <option value="Clothing">Clothing & Accessories</option>
+                    <option value="Health">Health & Personal Care</option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="Sports">Sports & Outdoors</option>
+                    <option value="Baby">Baby Products</option>
                 </select>
             </div>
             <div className="mb-3">

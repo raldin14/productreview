@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 interface Props {
     productId: string;
     onSubmit: (review: Omit<Review, "id"|"date">) => void;
-    onCancel?: () => void;  // Optional cancel for edit mode
+    onCancel?: () => void;  
     initialData?: {
         author: string;
         rating: number;

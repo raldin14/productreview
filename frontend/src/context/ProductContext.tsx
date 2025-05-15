@@ -42,7 +42,6 @@ export const ProductProvider: React.FC<{children: React.ReactNode}> = ({children
 
     const searchProducts = useCallback(async (query:string): Promise<Product[]> => {
         try {
-            // setLoading(true);
             const res = await API.get(`/search?q=${encodeURIComponent(query)}`);
             setError(null);
             return res.data;
@@ -50,9 +49,6 @@ export const ProductProvider: React.FC<{children: React.ReactNode}> = ({children
             setError('Failed to search products');
             return [];
         }
-        // finally{
-        //     setLoading(false);
-        // }
     },[]);
 
     useEffect(() =>{

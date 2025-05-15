@@ -17,7 +17,6 @@ const ProductList = memo(() => {
     }, []);
     
     useEffect(() => {
-        console.log(products)
         setDisplayedProducts(products);
     }, [products]);
 

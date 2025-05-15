@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import CreateProduct from './pages/CreateProduct';
 import EditProduct from './pages/EditProduct';
@@ -12,6 +12,7 @@ function App() {
         <Route path='/create' element={<CreateProduct/>}/>
         <Route path='/edit/:id' element={<EditProduct/>}/>
         <Route path='/product/:id' element={<SingleProductView/>}/>
+        <Route path='*' element={<Navigate to="/" replace/>}/>
       </Routes>
     </div>
   )
