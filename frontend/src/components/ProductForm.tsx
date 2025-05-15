@@ -50,8 +50,8 @@ const ProductForm: React.FC<Props> = ({initialData = {}, onSubmit}) => {
                 <input
                     type="number"
                     name="price"
-                    step="0.01"
-                    min="0"
+                    step={0.01}
+                    min={0}
                     className="form-control"
                     value={form.price}
                     onChange={handleChange}
@@ -68,16 +68,29 @@ const ProductForm: React.FC<Props> = ({initialData = {}, onSubmit}) => {
                     onChange={handleChange} 
                     readOnly />
             </div>
-            <div className="mb-3">
-                <label className="form-label">Image URL</label>
-                <input
-                    type="text"
-                    name="image"
-                    className="form-control"
-                    value={form.image}
-                    onChange={handleChange}
-                    placeholder="https://example.com/image.jpg"
-                />
+            <div className="mb-3 d-flex align-items-start gap-3">
+
+                {form.image &&(<img src={form.image} alt={form.name}
+                                style={{
+                                    width: "120px",
+                                    height: "auto",
+                                    objectFit: "contain",
+                                    border: "1px solid #ccc",
+                                    borderRadius: "4px",
+                                }}/>)}
+
+                <div className="flex-grow-1">
+                    <label className="form-label">Image URL</label>
+                    
+                    <input
+                        type="text"
+                        name="image"
+                        className="form-control"
+                        value={form.image}
+                        onChange={handleChange}
+                        placeholder="https://example.com/image.jpg"
+                    />
+                </div>
             </div>
             <button className="btn btn-success" type="submit">Submit</button>
         </form>

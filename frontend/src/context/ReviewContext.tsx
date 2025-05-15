@@ -51,7 +51,7 @@ export const ReviewProvider: React.FC<{children: React.ReactNode}> = ({children}
             try {
                 setLoading(true);
                 const res = await API.put(`/${productId}/reviews/${reviewId}`,updated);
-                setReviews((prev) => prev.map((rev) => (rev.id === reviewId ? res.data : rev)));
+                setReviews((prev) => prev.map((rev) => (rev._id === reviewId ? res.data : rev)));
                 setError(null);
             } catch (error) {
                 setError("Failed to update review");
@@ -64,7 +64,7 @@ export const ReviewProvider: React.FC<{children: React.ReactNode}> = ({children}
         try {
             setLoading(true);
             await API.delete(`/${productId}/reviews/${reviewId}`);
-            setReviews((prev) => prev.filter((r) => r.id !== reviewId));
+            setReviews((prev) => prev.filter((r) => r._id !== reviewId));
             setError(null);
         } catch (error) {
             setError("Failed to delete review")

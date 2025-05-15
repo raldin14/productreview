@@ -6,7 +6,7 @@ const SingleProductView = () =>{
     const {id} = useParams();
     const { products, loading} = useProductContex();
 
-    const product = products.find(p => p.id === id);
+    const product = products.find(p => p._id === id);
 
     if (loading) return <div>Loading product...</div>;
     if(!product) return <div>Product not found.</div>
@@ -20,7 +20,7 @@ const SingleProductView = () =>{
             <p><strong>Category:</strong> {product.category}</p>
 
             <hr />
-            <ProductDetail productId={product.id}/>
+            <ProductDetail productId={product._id}/>
         </div>
     )
 }

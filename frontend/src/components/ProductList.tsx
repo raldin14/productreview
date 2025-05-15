@@ -17,6 +17,7 @@ const ProductList = memo(() => {
     }, []);
     
     useEffect(() => {
+        console.log(products)
         setDisplayedProducts(products);
     }, [products]);
 
@@ -54,7 +55,7 @@ const ProductList = memo(() => {
                 </select>
             </div>
             {filterProducts.map((p) =>(
-                <div key={p.id} className="card mb-3">
+                <div key={p._id} className="card mb-3">
                     <div className="card-body d-flex justify-content-between">
                         {p.image && (
                             <img src={p.image} alt={p.name} className="me-3" 
@@ -62,7 +63,7 @@ const ProductList = memo(() => {
                         )}
                         <div>
                             <h5 className="card-title">
-                                <Link to={`/product/${p.id}`}>{p.name}</Link>
+                                <Link to={`/product/${p._id}`}>{p.name}</Link>
                             </h5>
                             <p className="card-text">{p.description}</p>
                             <p className="card-text"><strong>Price:</strong> ${p.price.toFixed(2)}</p>
@@ -70,8 +71,8 @@ const ProductList = memo(() => {
                             <div>Ratings: <Rating rating={p.averageRating ?? 0}/></div>
                         </div>
                         <div className="d-flex flex-column gap-2">
-                            <Link to={`/edit/${p.id}`} className="btn btn-sm btn-secondary">Edit</Link>
-                            <button onClick={() => deleteProduct(p.id)} className="btn btn-sm btn-danger">Delete</button>
+                            <Link to={`/edit/${p._id}`} className="btn btn-sm btn-secondary">Edit</Link>
+                            <button onClick={() => deleteProduct(p._id)} className="btn btn-sm btn-danger">Delete</button>
                         </div>
                     </div>
                 </div>
