@@ -12,10 +12,10 @@ const ProductList = memo(() => {
 
     const categories = Array.from(new Set(products.map(p => p.category)));
 
-    useEffect(() => {
+    useEffect(() => {        
         fetchProducts();
     }, []);
-    
+
     useEffect(() => {
         setDisplayedProducts(products);
     }, [products]);
@@ -34,15 +34,14 @@ const ProductList = memo(() => {
     }, [searchTerm, products]);
 
     const filterProducts = displayedProducts.filter(p => selectedCategory ? p.category === selectedCategory : true);
-
+    
     if(loading) return <div>Loading...</div>;
-    if(error) return <div className="text-danger">{error}</div>
 
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Products</h2>
-                <Link to="/create" className="btn btn-primary">Add Product</Link>
+                {!error &&<Link to="/create" className="btn btn-primary">Add Product</Link>}
             </div>
             <div className="d-flex mb-3 gap-3">
                 <input type="text" placeholder="Search by name..." className="form-control" value={searchTerm} onChange={(e) => setSearchterm(e.target.value)}/>
@@ -53,7 +52,7 @@ const ProductList = memo(() => {
                     ))}
                 </select>
             </div>
-            {filterProducts.map((p) =>(
+            {error ?(<div className="text-danger">Server may not be runnig Error: {error}</div>): filterProducts.map((p) =>(
                 <div key={p._id} className="card mb-3">
                     <div className="card-body d-flex justify-content-between">
                         {p.image && (

@@ -10,7 +10,10 @@ import  Product  from "../models/Product";
 
 const updateAverageRating =async (productId:string) => {
     const reviews = await Review.find({productId});
-    if(reviews.length === 0) return;
+    if(reviews.length === 0) {
+        await Product.findByIdAndUpdate(productId, { averageRating: 0 });
+        return; 
+    }
 
     const avg = reviews.reduce((sum, r) => sum + r.rating, 0)/reviews.length;
     await Product.findByIdAndUpdate(productId, {averageRating: avg});
