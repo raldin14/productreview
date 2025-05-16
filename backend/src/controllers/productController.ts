@@ -134,9 +134,13 @@ const productPath = path.join(__dirname,'../data/products.json');
 // export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
     export const deleteProduct = async (req: Request, res: Response) => {
     try {
-        const deleted = await Product.findByIdAndDelete(req.params.id);
+        // const deleted = await Product.findByIdAndDelete(req.params.id);
+        const deleted = await Product.findById(req.params.id);
         if(!deleted) res.status(404).json({message: "Product not found"});
-        else res.json({message: "Deleted successfully"});
+        else {
+            await deleted.deleteOne();
+            res.json({message: "Deleted successfully"});
+        }
         // const {id} = req.params;
         // const products: Product[] = await readJSON(productPath);
         // const exists = products.find(p => p.id === id);
