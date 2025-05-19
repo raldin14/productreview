@@ -10,6 +10,7 @@ interface ReviewContextType {
     createReview: (productId: string, review: Omit<Review, "id" |"date">) => Promise<void>;
     updateReview: (productId: string, reviewId: string, review: Partial<Review>) => Promise<void>;
     deleteReview: (productId: string, reviewId: string) => Promise<void>;
+    getSuggestedComment: (rating: number) => Promise<string|null>;
 }
 
 const ReviewContext = createContext<ReviewContextType | undefined>(undefined);
@@ -72,8 +73,22 @@ export const ReviewProvider: React.FC<{children: React.ReactNode}> = ({children}
             setLoading(false);
         }
     },[]);
+
+    const getSuggestedComment = useCallback(async (rating: number) => {
+        try {
+            setLoading(true);
+            const res = await API.post(`/suggest`,{rating});
+            return res.data || null;
+        } catch (error) {
+            console.error("Failed to fetch suggested comment: ", error);
+            return null;
+        }finally{
+            setLoading(false);
+        }
+    },[]);
+    
     return (
-        <ReviewContext.Provider value={{reviews, loading, error,fetchReviews,createReview,updateReview,deleteReview}}>
+        <ReviewContext.Provider value={{reviews, loading, error,fetchReviews,createReview,updateReview,deleteReview,getSuggestedComment}}>
             {children}
         </ReviewContext.Provider>
     )

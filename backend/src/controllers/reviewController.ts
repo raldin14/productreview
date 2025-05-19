@@ -1,10 +1,13 @@
 import { Request, Response, NextFunction } from "express";
+import axios from 'axios';
 // import path from 'path';
 // import { v4 as uuidv4} from 'uuid';
 // import { readJSON, writeJSON } from "../utils/fileHandler";
 import  Review  from "../models/Review";
 import  Product  from "../models/Product";
 
+const API_KEY = process.env.OPENAI_API_KEY;
+const URL = process.env.SERVER_URL;
 // const reviewPath = path.join(__dirname, '../data/reviews.json');
 // const productPath = path.join(__dirname, '../data/products.json');
 
@@ -140,5 +143,40 @@ export const deleteReview =async (req: Request, res: Response, next: NextFunctio
         // }
     } catch (error) {
         next(error);
+    }
+}
+
+export const suggestReview =async (req :Request, res: Response, next: NextFunction) => {
+    const {rating } = req.body;
+    console.log(rating, API_KEY)
+    if( typeof rating !== "number" || rating < 1 || rating > 5)
+        res.status(400).json({message: 'Rating must be anumber between 1 and 5'});
+    else{
+        try {
+            const response = await axios.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                {
+                  model: "mistralai/mistral-7b-instruct:free", 
+                  messages: [
+                    {
+                      role: "user",
+                      content: `Write a helpful one paragraph review for a product rated ${rating} out of 5 donnot add product name.`,
+                    },
+                  ],
+                },
+                {
+                  headers: {
+                    "Authorization": `Bearer ${API_KEY}`,
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": URL, 
+                    "X-Title": "product-review-app", 
+                  },
+                }
+              );
+                // console.log(response.data.choices?.[0]?.message?.content);
+            res.status(200).send(response.data.choices?.[0]?.message?.content)
+        } catch (error: any) {
+            console.error("OpenRouter API error:", error.response?.data || error.message);
+        }
     }
 }

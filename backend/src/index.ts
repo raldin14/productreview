@@ -15,9 +15,9 @@ import errorHandler from './middlewares/errorHandler';
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
-app.use(cors());
+app.use(cors());//Add especific client to ftch
 app.use(express.json());
 
 // serve static images
@@ -25,44 +25,43 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Swagger setup
 const swaggerOptions = {
-    definition: {
-      openapi: '3.0.0',
-      info: {
-        title: 'Product API',
-        version: '1.0.0',
-        description: 'API documentation',
-      },
-      components: {
-        schemas: {
-          Product: {
-            type: 'object',
-            properties: {
-              name: { type: 'string' },
-              description: { type: 'string' },
-              category: { type: 'string' },
-              price: { type: 'number' },
-              averageRating: { type: 'number' },
-              image: { type: 'string' },
-            },
-          },
-          Review: {
-            type: 'object',
-            properties: {
-              user: { type: 'string' },
-              rating: { type: 'number' },
-              comment: { type: 'string' },
-            },
-          },
-        },
-      },
-      servers: [
-        {
-          url: 'http://localhost:3000',
-        },
-      ],
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Product API",
+      version: "1.0.0",
+      description: "API for managing products and reviews",
     },
-    apis: ['./routes/*.ts'],
-  };
+    servers: [
+      {
+        url: `https://productreview-backend.onrender.com`, 
+      },
+    ],
+    components: {
+      schemas: {
+        Product: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            description: { type: "string" },
+            price: { type: "number" },
+            category: { type: "string" },
+          },
+          required: ["name", "price"],
+        },
+        Review: {
+          type: "object",
+          properties: {
+            rating: { type: "number" },
+            comment: { type: "string" },
+          },
+          required: ["rating", "comment"],
+        },
+      },
+    },
+  },
+  apis: ["./dist/routes/*.ts"],
+};
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

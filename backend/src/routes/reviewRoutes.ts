@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addReview, deleteReview, getProductReviews, updateReview } from "../controllers/reviewController";
+import { addReview, deleteReview, getProductReviews, suggestReview, updateReview } from "../controllers/reviewController";
 
 const router = Router();
 
@@ -106,4 +106,33 @@ router.put('/:productId/reviews/:id',updateReview);
  *         description: Review deleted
  */
 router.delete('/:productId/reviews/:id',deleteReview);
+
+/**
+ * @swagger
+ * /products/suggest:
+ *   post:
+ *     summary: Get a suggested review comment based on rating
+ *     tags: [Reviews]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               rating:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Suggested comment
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 suggestion:
+ *                   type: string
+ */
+router.post('/suggest', suggestReview);
+
 export default router;
