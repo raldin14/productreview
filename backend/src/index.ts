@@ -34,7 +34,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://productreview-backend.onrender.com`, 
+        url: `${process.env.SERVER_URL}`, 
       },
     ],
     components: {
@@ -60,7 +60,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ["./dist/routes/*.ts"],
+  apis: ["./src/routes/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
