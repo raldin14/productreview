@@ -23,6 +23,7 @@ const ReviewForm: React.FC<Props> = ({productId, onSubmit, onCancel,initialData}
         rating:0,
         comment:"",
     });
+    const[rating,setRating] = useState(0);
 
     const [error, setError] = useState("");
     const [loadingSuggestion, setLoadSuggestion] = useState(false);
@@ -33,6 +34,14 @@ const ReviewForm: React.FC<Props> = ({productId, onSubmit, onCancel,initialData}
         }
     },[initialData]);
     
+    useEffect(()=>{
+        if(rating !== 0){
+            hendleSuggestion();
+        }else{
+            setForm({...form, comment: ""});
+        }
+    },[rating]);
+
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
         const {name, value} = e.target;
         setForm((prev) => ({
@@ -40,7 +49,7 @@ const ReviewForm: React.FC<Props> = ({productId, onSubmit, onCancel,initialData}
             [name]: name === "rating" ? Number(value) : value,
         }));
 
-        if(name === "rating") hendleSuggestion();
+         if(name === "rating") setRating(Number(value));
     }
 
     const handlerSubmit = (e: React.FormEvent) => {
