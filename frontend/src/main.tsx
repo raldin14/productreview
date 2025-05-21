@@ -10,7 +10,6 @@ import Footer from './components/Footer.tsx';
 import './index.css'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    
       <BrowserRouter>
         <Header/>
         <div className='layout'>

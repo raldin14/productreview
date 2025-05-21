@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
@@ -17,13 +16,9 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-app.use(cors());//Add especific client to ftch
+app.use(cors());
 app.use(express.json());
 
-// serve static images
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-//Swagger setup
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
