@@ -1,118 +1,127 @@
-# productreview
-# 🛍️ Product Review & Rating Platform (Backend)
+# CS472-Final-Project-May-2025 – Product Review & Rating Platform
 
-This is a full-featured backend API for a Product Review & Rating platform built with **Node.js**, **Express**, and **TypeScript**. It allows users to browse products, search/filter them, and create/edit/delete product reviews. Data is stored using local JSON files (no database needed).
-
----
-
-## 📦 Features
-
-- 🗂 Paginated product listing (10 per page)
-- 🔎 Product search by name
-- 🏷 Filter products by category
-- 📝 CRUD operations for reviews
-- ⭐ Automatic average rating calculation per product
-- 📁 Data persistence using `products.json` and `reviews.json`
-- ✅ Robust validation and error handling
+This is a full-stack project built for the CS472 course at Maharishi International University. It demonstrates the integration of various core concepts from the course by developing a Product Review and Rating Platform where users can browse products, search, filter by category, post reviews, and rate products.
 
 ---
 
-## 🚀 Getting Started
+## 🔗 Live Links
 
-### 1. Clone the Repository
+- **Frontend**: [https://productreview-frontend-0vsp.onrender.com/](https://productreview-frontend-0vsp.onrender.com/)
+- **Backend**: [https://productreview-backend.onrender.com](https://productreview-backend.onrender.com)
+- **GitHub**: [https://github.com/raldin14/productreview](https://github.com/raldin14/productreview)
 
-```bash
-git clone https://github.com/YOUR_USERNAME/product-review-api.git
-cd product-review-api
+---
 
-2. Install Dependencies
-bash
-Copy
-Edit
+## 📦 Project Structure
+
+productreview/
+├── frontend/ # React + TypeScript frontend
+└── backend/ # Express + TypeScript backend
+
+---
+
+## 🧰 Tech Stack
+
+### Frontend
+- React (with TypeScript)
+- React Router
+- Context API
+- Bootstrap
+- Axios for HTTP requests
+- Hosted on Render
+
+### Backend
+- Node.js with Express
+- TypeScript
+- MongoDB
+- Swagger (OpenAPI 3.0) for API documentation
+- Hosted on Render
+
+---
+
+## ✨ Features
+
+### 🛍️ Products
+- Store and manage product data in mongoDB productCatalogDB products.
+- Fields: `id`, `name`, `description`, `category`, `price`, `dateAdded`, `averageRating`.
+- For dev store is productCatalogDBDev
+### 📝 Reviews
+- Add, edit, and delete reviews per product.
+- Each review includes: `id`, `productId`, `author`, `rating (1–5)`, `comment`, `date`.
+- Stored in mongoDB productCatalogDB reviews.
+- For dev store is productCatalogDBDev
+
+### ⭐ Ratings
+- Automatic computation and display of average rating per product.
+
+---
+
+## 🔌 API Endpoints
+
+### Products
+- `GET /products`: Paginated, sorted by `dateAdded`. Supports `page` and `category` query.
+- `GET /products/search?q=`: Search products by name.
+
+### Reviews
+- `GET /products/:id/reviews`: Get all reviews for a product.
+- `POST /products/:id/reviews`: Add a review.
+- `PUT /products/:productId/reviews/:id`: Edit a review.
+- `DELETE /products/:productId/reviews/:id`: Delete a review.
+
+---
+
+## 📄 API Documentation
+
+Swagger docs available via backend deployment:
+[https://productreview-backend.onrender.com/api-docs](https://productreview-backend.onrender.com/api-docs)
+
+---
+
+## ✅ Functional Requirements
+
+- Fully typed code (frontend & backend)
+- All components and API responses use TypeScript types/interfaces
+- Form validations (client and server side)
+- Responsive and clean UI
+- Memoization with `useMemo`, `React.memo`, `useCallback`
+- Proper error and loading state handling
+
+---
+
+## 🧪 How to Run Locally
+
+### Prerequisites:
+- Node.js and npm installed
+
+### Steps:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/raldin14/productreview
+   cd productreview
+Install dependencies
+
+Backend:
+
+cd backend
 npm install
-3. Run the Development Server
-bash
-Copy
-Edit
+npm start
+
+Frontend:
+
+cd frontend
+npm install
 npm run dev
-The server will run at http://localhost:3000.
 
-📁 Project Structure
-graphql
-Copy
-Edit
-product-review-api/
-├── src/
-│   ├── controllers/      # Business logic (product + review)
-│   ├── data/             # JSON data files (products, reviews)
-│   ├── models/           # TypeScript interfaces
-│   ├── routes/           # API route definitions
-│   ├── utils/            # File read/write helpers
-│   └── app.ts            # Express server entry point
-├── package.json
-├── tsconfig.json
-└── README.md
-🧪 API Endpoints
-📦 Products
-Method	Endpoint	Description
-GET	/api/products	List all products (with page and category filters)
-GET	/api/products/search?q=...	Search products by name
-POST	/api/products	Add a new product
-PUT	/api/products/:id	Update an existing product
-DELETE	/api/products/:id	Delete a product
+Ensure proper format in JSON files to avoid backend crashes.
 
-📝 Reviews
-Method	Endpoint	Description
-GET	/api/products/:id/reviews	Get all reviews for product
-POST	/api/products/:id/reviews	Add a review
-PUT	/api/products/:productId/reviews/:reviewId	Edit a review
-DELETE	/api/products/:productId/reviews/:reviewId	Delete a review
+🏆 Bonus Features (Implemented)
+✅ Swagger API documentation
 
-🧰 Scripts
-Command	Description
-npm run dev	Run with nodemon (development)
-npm run build	Compile TypeScript
-npm start	Run compiled JS (production)
+✅ Backend hosted on Render
 
-🔧 Configuration
-tsconfig.json
-This project uses modern JavaScript targets and strict typing:
+✅ Frontend hosted on Render
 
-json
-Copy
-Edit
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true
-  }
-}
-📂 Data Files
-src/data/products.json – Contains product objects with fields:
+✅ AI integrated to generate a suggested comment.
 
-id, name, description, category, price, dateAdded, averageRating, imagePath
-
-src/data/reviews.json – Contains review objects:
-
-id, productId, author, rating, comment, date
-
-Both files must exist and be initialized with [] if empty.
-
-✅ Example Product Entry
-json
-Copy
-Edit
-{
-  "id": "1",
-  "name": "Wireless Headphones",
-  "description": "High quality wireless headphones",
-  "category": "Electronics",
-  "price": 99.99,
-  "dateAdded": "2024-05-06T00:00:00Z",
-  "averageRating": 4.5,
-  "imagePath": "/images/headphones.png"
-}
+✅ Database with mongoDB

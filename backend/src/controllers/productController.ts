@@ -8,10 +8,26 @@ import Product  from '../models/Product';
 const productPath = path.join(__dirname,'../data/products.json');
 
 // export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
-    export const getAllProducts = async (req: Request, res: Response) => {
+export const getAllProducts = async (req: Request, res: Response) => {
     try {
-        const products = await Product.find();
-        res.json(products);
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = 10;
+
+        const total = await Product.countDocuments();
+
+        const products = await Product.find()
+            .sort({ dateAdded: -1 }) // descending
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        res.json({
+            page,
+            total,
+            totalPages: Math.ceil(total / limit),
+            data: products
+        });
+        // const products = await Product.find();
+        // res.json(products);
         // const { page = '1', category } = req.query;
         // const products: Product[] = await readJSON(productPath);
         // let filtered = category ? products.filter(p => p.category === category) : products;
@@ -47,8 +63,26 @@ const productPath = path.join(__dirname,'../data/products.json');
     export const searchProducts = async (req: Request, res: Response) => {
     try {
         const q = req.query.q as string;
-        const products = await Product.find({name: { $regex: q, $options: "i"}});
-        res.json(products);
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = 5;
+        const skip = (page - 1) * limit;
+
+        const filter = { name: { $regex: q, $options: "i" } };
+
+        const total = await Product.countDocuments(filter);
+        const products = await Product.find(filter)
+                                      .skip(skip)
+                                      .limit(limit);
+
+        res.json({
+            data: products,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total,
+        });
+        // const q = req.query.q as string;
+        // const products = await Product.find({name: { $regex: q, $options: "i"}});
+        // res.json(products);
         // const { q } = req.query;
         // if(!q) res.status(400).json({ error: 'Missing search query'});
         // else{

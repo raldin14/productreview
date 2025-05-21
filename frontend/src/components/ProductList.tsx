@@ -3,35 +3,47 @@ import { Link } from "react-router-dom";
 import { useProductContex } from '../context/ProductContext';
 import Rating from "./Rating";
 import type { Product } from "../types";
+import SearchBar from "./SearchBar";
 
 const ProductList = memo(() => {
-    const {products, loading, error, deleteProduct, fetchProducts, searchProducts} = useProductContex();
+    const {products, loading, error,currentPage,totalPages,setCurrentPage, deleteProduct, fetchProducts, searchProducts} = useProductContex();
     const [searchTerm, setSearchterm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [displayedProducts, setDisplayedProducts] = useState<Product[]>([]);
+    const [searchMode, setSearchMode] = useState(false);
 
     const categories = Array.from(new Set(products.map(p => p.category)));
 
-    useEffect(() => {        
+    useEffect(() => {
         fetchProducts();
     }, []);
 
     useEffect(() => {
-        setDisplayedProducts(products);
+        if (!searchMode) {
+            setDisplayedProducts(products);
+        }
     }, [products]);
 
     useEffect(() => {
         const handleSearch = async () => {
             if (searchTerm) {
-                const results = await searchProducts(searchTerm);
+                setSearchMode(true);
+
+                const results = await searchProducts(searchTerm,currentPage);
                 setDisplayedProducts(results);
             } else {
+                setSearchMode(false);
                 setDisplayedProducts(products);
             }
         };
     
         handleSearch();
-    }, [searchTerm, products]);
+    }, [searchTerm, currentPage]);
+
+    const goToPage = (page: number) => {
+        setCurrentPage(page);
+        fetchProducts(page);
+    };
 
     const filterProducts = displayedProducts.filter(p => selectedCategory ? p.category === selectedCategory : true);
     
@@ -44,7 +56,11 @@ const ProductList = memo(() => {
                 {!error &&<Link to="/create" className="btn btn-primary">Add Product</Link>}
             </div>
             <div className="d-flex mb-3 gap-3">
-                <input type="text" placeholder="Search by name..." className="form-control" value={searchTerm} onChange={(e) => setSearchterm(e.target.value)}/>
+
+                <SearchBar searchTerm={searchTerm} setSearchTerm={(val) => {
+                            setSearchterm(val);
+                            }} />
+
                 <select className="form-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                     <option value="">All Categories</option>
                     {categories.map((cat) => (
@@ -75,6 +91,23 @@ const ProductList = memo(() => {
                     </div>
                 </div>
             ))}
+            {totalPages > 1 &&
+            <div className="d-flex justify-content-center mt-4">
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => goToPage(currentPage - 1)}
+                >
+                    Previous
+                </button>
+                <span className="align-self-center">Page {currentPage} of {totalPages}</span>
+                <button
+                    disabled={currentPage === totalPages}
+                    onClick={() => goToPage(currentPage + 1)}
+                >
+                    Next
+                </button>
+            </div>
+            }
         </div>
     )
 });

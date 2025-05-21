@@ -35,11 +35,13 @@ const ReviewForm: React.FC<Props> = ({productId, onSubmit, onCancel,initialData}
     },[initialData]);
     
     useEffect(()=>{
-        if(rating !== 0){
-            hendleSuggestion();
-        }else{
-            setForm({...form, comment: ""});
-        }
+        if(!initialData){
+            if(rating !== 0){
+                hendleSuggestion();
+            }else{
+                setForm({...form, comment: ""});
+            }
+        }        
     },[rating]);
 
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
@@ -81,7 +83,6 @@ const ReviewForm: React.FC<Props> = ({productId, onSubmit, onCancel,initialData}
         if(suggestion) setForm((prev) => ({...prev, comment: suggestion}));
         setLoadSuggestion(false);
     }
-
     return (
         <form onSubmit={handlerSubmit}>
             {error && <div className="alert alert-danger">{error}</div>}

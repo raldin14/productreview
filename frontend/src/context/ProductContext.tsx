@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect,useState, useCallback } from "react";
+import { createContext, useContext, useEffect,useState, useCallback, type Dispatch, type SetStateAction } from "react";
 import type { Product } from "../types";
 import API from "../api";
 
@@ -6,9 +6,12 @@ interface ProductContextType{
     products: Product[];
     loading: boolean;
     error: string | null;
-    fetchProducts: () => void;
+    currentPage: number;
+    totalPages: number;
+    setCurrentPage: Dispatch<SetStateAction<number>>;
+    fetchProducts: (page?: number) => void;
     deleteProduct: (id: string) => void;
-    searchProducts: (query: string) => Promise<Product[]>;
+    searchProducts: (query: string, page?:number) => Promise<Product[]>;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -16,13 +19,16 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 export const ProductProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchProducts = useCallback(async () =>{
+    const fetchProducts = useCallback(async (page = 1) =>{
         try {
             setLoading(true);
-            const res = await API.get('/');
-            setProducts(res.data);
+            const res = await API.get(`/?page=${page}`);
+            setProducts(res.data.data);
+            setTotalPages(res.data.totalPages);
             setError(null);
         } catch (error) {
             setError('failed to get product');
@@ -40,11 +46,13 @@ export const ProductProvider: React.FC<{children: React.ReactNode}> = ({children
         }
     },[fetchProducts]);
 
-    const searchProducts = useCallback(async (query:string): Promise<Product[]> => {
+    const searchProducts = useCallback(async (query:string, page = 1): Promise<Product[]> => {
         try {
-            const res = await API.get(`/search?q=${encodeURIComponent(query)}`);
+            const res = await API.get(`/search?q=${encodeURIComponent(query)}&page=${page}`);
             setError(null);
-            return res.data;
+            setCurrentPage(res.data.currentPage);
+            setTotalPages(res.data.totalPages);
+            return res.data.data;
         } catch (error) {
             setError('Failed to search products');
             return [];
@@ -56,7 +64,7 @@ export const ProductProvider: React.FC<{children: React.ReactNode}> = ({children
     },[fetchProducts]);
 
     return (
-        <ProductContext.Provider value={{products, loading, error, fetchProducts, deleteProduct, searchProducts}}>
+        <ProductContext.Provider value={{products, loading, error,currentPage,totalPages,setCurrentPage, fetchProducts, deleteProduct, searchProducts}}>
             {children}
         </ProductContext.Provider>
     )
