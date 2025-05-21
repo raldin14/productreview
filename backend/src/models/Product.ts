@@ -2,7 +2,6 @@ import mongoose,{Schema, Document} from "mongoose";
 import Review from "./Review";
 
 export interface IProduct extends Document{
-    // id: string;
     name: string;
     description: string;
     category: string;
