@@ -104,20 +104,27 @@ Install dependencies
 Backend:
 
 cd backend
+
 add .env file information 
+
 npm install
+
 npm start
 
 Frontend:
 
 cd frontend
+
 add .env file information 
+
 npm install
+
 npm run dev
 
 Ensure proper format in JSON files to avoid backend crashes.
 
 🏆 Bonus Features (Implemented)
+
 ✅ Swagger API documentation
 
 ✅ Backend hosted on Render
