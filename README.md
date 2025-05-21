@@ -104,12 +104,14 @@ Install dependencies
 Backend:
 
 cd backend
+add .env file information 
 npm install
 npm start
 
 Frontend:
 
 cd frontend
+add .env file information 
 npm install
 npm run dev
 
